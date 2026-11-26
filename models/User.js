@@ -37,14 +37,14 @@ const userSchema = new Schema(
 );
 
 // Hash plain-text password before saving to the database
-userSchema.pre("save", async function (next) {
+userSchema.pre('save', async function () {
   if (!this.password || !this.isModified("password")) {
-    return next();
+    return ;
   }
 
   const saltRounds = 10;
   this.password = await bcrypt.hash(this.password, saltRounds);
-  next();
+  
 });
 
 // Compare candidate password against hashed password during local login
